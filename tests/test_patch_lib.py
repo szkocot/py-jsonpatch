@@ -48,3 +48,49 @@ def test_move():
          "from": "/test"}
     ])
     assert document == {"test2": "test"}
+
+###
+
+
+def test_add2():
+    document = patch_document({"test": "test"}, [
+        {"op": "add",
+         "path": "/test2/test2",
+         "value": "test2"}
+    ])
+    assert document == {"test": "test", "test2/test2": "test2"}
+
+
+def test_remove2():
+    document = patch_document({"test/test": "test"}, [
+        {"op": "remove",
+         "path": "/test/test"}
+    ])
+    assert document == {}
+
+
+def test_replace2():
+    document = patch_document({"test/test": "test"}, [
+        {"op": "replace",
+         "path": "/test/test",
+         "value": "test2"}
+    ])
+    assert document == {"test/test": "test2"}
+
+
+def test_copy2():
+    document = patch_document({"test": "test"}, [
+        {"op": "copy",
+         "path": "/test2/test2",
+         "from": "/test"}
+    ])
+    assert document == {"test": "test", "test2/test2": "test"}
+
+
+def test_move2():
+    document = patch_document({"test/test": "test"}, [
+        {"op": "move",
+         "path": "/test2/test2",
+         "from": "/test/test"}
+    ])
+    assert document == {"test2/test2": "test"}
